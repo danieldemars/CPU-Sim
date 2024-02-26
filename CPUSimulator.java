@@ -42,7 +42,7 @@ public class CPUSimulator {
         try {
             input = new BufferedReader(new FileReader(defaultCommands));
         } catch (FileNotFoundException e) {
-            System.err.println("Error: File not found");
+            System.err.println("Error: Default Commands file not found");
             return;
         }
         
@@ -62,7 +62,7 @@ public class CPUSimulator {
         try {
             input = new BufferedReader(new FileReader(defaultCommands));
         } catch (FileNotFoundException e) {
-            System.err.println("Error: File not found");
+            System.err.println("Error: Default Commands file not found");
         }
         
         // set output to standard output device
@@ -80,7 +80,7 @@ public class CPUSimulator {
         try {
             input = new BufferedReader(new FileReader(inFileName));
         } catch (FileNotFoundException e) {
-            System.err.println("Error: File not found");
+            System.err.println("Error: Input file not found");
             return;
         }
         
@@ -99,7 +99,7 @@ public class CPUSimulator {
         try {
             input = new BufferedReader(new FileReader(inFileName));
         } catch (FileNotFoundException e) {
-            System.err.println("Error: File not found");
+            System.err.println("Error: Input file not found");
         }
         
         // set output to file proivded by user
@@ -107,7 +107,7 @@ public class CPUSimulator {
             File file = new File(outFileName);
             output = new PrintStream(file); 
         } catch (FileNotFoundException e){
-            System.err.println("Error: File not found");
+            System.err.println("Error: Output file not found");
             return;
         }
         

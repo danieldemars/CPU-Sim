@@ -7,7 +7,7 @@ Homework 17 – CPU Simulator
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class ReadyQueue extends Heap{
+public class ReadyQueue extends Heap<Job>{
     public ReadyQueue(Comparator<Job> comparator){
         super(comparator);
     }

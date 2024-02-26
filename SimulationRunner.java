@@ -9,28 +9,26 @@ import java.util.Scanner;
 
 public class SimulationRunner {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in); 
+
         // Get the comparator from the user
-        //Comparator<Job> comparator = getShedulingAlgorithm();
+        Comparator<Job> comparator = getShedulingAlgorithm(scanner);
 
         // Ask the user if they want to use a file for the jobs
-        //String input = getJobs(); 
+        String input = getJobs(scanner); 
 
         // Create CPU object 
-        //CPUSimulator cpu = createCPU(input, comparator);
+        CPUSimulator cpu = createCPU(input, comparator, scanner);
+        
+        // Close scanner
+        scanner.close();  
 
-        Comparator<Job> comparator = new RRComparator(); 
-        
-        //CPUSimulator cpu = new CPUSimulator();
-        //CPUSimulator cpu = new CPUSimulator(comparator);
-        //CPUSimulator cpu = new CPUSimulator("test.txt", comparator);
-        CPUSimulator cpu = new CPUSimulator("test.txt", "output.txt", comparator);
-        
+        // Start simulation
         cpu.start(); 
     }
 
     // Ask the user to select a scheduling algorithm
-    protected static Comparator<Job> getShedulingAlgorithm() {
-        Scanner scanner = new Scanner(System.in);
+    protected static Comparator<Job> getShedulingAlgorithm(Scanner scanner) {
         int choice = 0;
         do {
             // Prompt the user to select a scheduling algorithm
@@ -39,7 +37,7 @@ public class SimulationRunner {
                 + "\n2. Highest Response Ratio" 
                 + "\n3. Round Robin" 
                 + "\n4. Shortest Job First" 
-                + "\n5. Shortest Remaining Time \n");
+                + "\n5. Shortest Remaining Time");
 
             // Make sure the user enters a number between 1 and 5
             while (!scanner.hasNextInt()) {
@@ -47,6 +45,7 @@ public class SimulationRunner {
                 scanner.next(); // discard non-integer input
             }
             choice = scanner.nextInt();
+            System.out.println();
         } while (choice < 1 || choice > 5);
 
         // Return the comparator the user selected
@@ -68,9 +67,9 @@ public class SimulationRunner {
     }
 
     // Ask the user if they want to use a file for the jobs or use the default commands
-    protected static String getJobs(){
-        Scanner scanner = new Scanner(System.in);
+    protected static String getJobs(Scanner scanner){
         String input = "";
+        scanner.nextLine(); // clear the scanner buffer
 
         do {
             // Prompt the user to select a scheduling algorithm
@@ -82,7 +81,9 @@ public class SimulationRunner {
                 System.err.println("Invalid input! Please enter \"Y\" or \"N\".");
             }
         } while (!input.equalsIgnoreCase("Y") && !input.equalsIgnoreCase("N"));
-        
+
+        System.out.println();
+
         // If the user wants to use a file, ask for the file name
         if (input.equalsIgnoreCase("Y")) {
             do {
@@ -98,12 +99,13 @@ public class SimulationRunner {
             // If the user doesnt want to use a file, use DefaultCommands.txt
             return "DefaultCommands.txt"; 
         }
+
+        System.out.println();
         return input;
     }
 
     // Create the CPU object
-    protected static CPUSimulator createCPU(String inputfile, Comparator<Job> comparator){
-        Scanner scanner = new Scanner(System.in);
+    protected static CPUSimulator createCPU(String inputfile, Comparator<Job> comparator, Scanner scanner){
         String outputMethod = "";
 
         // Ask user if they want to output to a file or the standard output device 
@@ -118,6 +120,8 @@ public class SimulationRunner {
             }
         } while (!outputMethod.equalsIgnoreCase("Y") && !outputMethod.equalsIgnoreCase("N"));
         
+        System.out.println();
+
         // If the user wants to use a file, ask for the file name
         if (outputMethod.equalsIgnoreCase("Y")) {
             do {
